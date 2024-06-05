@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getJobById } from '../services/api';
+import './JobDetail.css'; // Import the CSS file for styling
 
 const JobDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -23,17 +24,18 @@ const JobDetail: React.FC = () => {
         }
     }, [id]);
 
-    if (error) return <div>{error}</div>;
-    if (!job) return <div>Loading...</div>;
+    if (error) return <div className="error">{error}</div>;
+    if (!job) return <div className="loading">Loading...</div>;
 
     return (
-        <div>
+        <div className="job-detail">
             <h1>Job Detail</h1>
-            <p>Customer: {job.customerName}</p>
-            <p>Job Type: {job.jobType}</p>
-            <p>Status: {job.status}</p>
-            <p>Appointment Date: {new Date(job.appointmentDate).toLocaleString()}</p>
-            <p>Technician: {job.technician}</p>
+            <p><strong>Customer:</strong> {job.customerName}</p>
+            <p><strong>Job Type:</strong> {job.jobType}</p>
+            <p><strong>Status:</strong> {job.status}</p>
+            <p><strong>Appointment Date:</strong> {new Date(job.appointmentDate).toLocaleString()}</p>
+            <p><strong>Technician:</strong> {job.technician}</p>
+            <Link to="/" className="back-button">Back to Job List</Link>
         </div>
     );
 };
