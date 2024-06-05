@@ -15,8 +15,11 @@ const JobList: React.FC = () => {
     }, []);
 
     const handleDelete = async (id: number) => {
-        await deleteJob(id);
-        setJobs(jobs.filter((job: any) => job.id !== id));
+        const confirmed = window.confirm("Are you sure you want to delete this job?");
+        if (confirmed) {
+            await deleteJob(id);
+            setJobs(jobs.filter((job: any) => job.id !== id));
+        }
     };
 
     return (
