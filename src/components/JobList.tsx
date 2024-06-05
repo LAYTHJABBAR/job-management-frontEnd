@@ -28,12 +28,16 @@ const JobList: React.FC = () => {
             <Link to="/add-job" className="add-job-button">Add Job</Link>
             <ul>
                 {jobs.map((job: any) => (
-                    <li key={job.id}>
-                        <Link to={`/jobs/${job.id}`}>
-                            {job.customerName} - {job.jobType} - {job.status}
-                        </Link>
-                        <Link to={`/edit-job/${job.id}`} className="edit-button">Edit</Link>
-                        <button onClick={() => handleDelete(job.id)} className="delete-button">Delete</button>
+                    <li key={job.id} className="job-item">
+                        <span>
+                            <Link to={`/jobs/${job.id}`}>
+                                {job.customerName} - {job.jobType} - {job.status}
+                            </Link>
+                        </span>
+                        <div className="button-group">
+                            <Link to={`/edit-job/${job.id}`} className="edit-button">Edit</Link>
+                            <button onClick={() => handleDelete(job.id)} className="delete-button">Delete</button>
+                        </div>
                     </li>
                 ))}
             </ul>
