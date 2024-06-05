@@ -5,14 +5,17 @@ import './JobForm.css';
 
 const JobForm: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const [job, setJob] = useState<any>({ customerName: '', jobType: '', status: '', appointmentDate: '', technician: '' });
+    const [job, setJob] = useState<any>({ customerName: '', jobType: '', status: 'Scheduled', appointmentDate: '', technician: '' });
     const navigate = useNavigate();
 
     useEffect(() => {
         if (id) {
             const fetchJob = async () => {
                 const response = await getJobById(parseInt(id));
-                setJob(response.data);
+                setJob({
+                    ...response.data,
+                    appointmentDate: new Date(response.data.appointmentDate).toISOString().slice(0, 16) // For input[type="datetime-local"]
+                });
             };
             fetchJob();
         }
