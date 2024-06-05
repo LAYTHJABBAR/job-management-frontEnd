@@ -5,15 +5,25 @@ import { getJobById } from '../services/api';
 const JobDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [job, setJob] = useState<any>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchJob = async () => {
-            const response = await getJobById(parseInt(id));
-            setJob(response.data);
-        };
-        fetchJob();
+        if (id) {
+            const fetchJob = async () => {
+                try {
+                    const response = await getJobById(parseInt(id));
+                    setJob(response.data);
+                } catch (error) {
+                    setError('Failed to fetch job details');
+                }
+            };
+            fetchJob();
+        } else {
+            setError('Invalid job ID');
+        }
     }, [id]);
 
+    if (error) return <div>{error}</div>;
     if (!job) return <div>Loading...</div>;
 
     return (
