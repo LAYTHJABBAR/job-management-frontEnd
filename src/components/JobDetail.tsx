@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getJobById } from '../services/api';
-import './JobDetail.css'; // Import the CSS file for styling
+import './JobDetail.css';
 
 const JobDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -35,7 +35,10 @@ const JobDetail: React.FC = () => {
             <p><strong>Status:</strong> {job.status}</p>
             <p><strong>Appointment Date:</strong> {new Date(job.appointmentDate).toLocaleString()}</p>
             <p><strong>Technician:</strong> {job.technician}</p>
-            <Link to="/" className="back-button">Back to Job List</Link>
+            <div className="button-group">
+                <Link to={`/edit-job/${id}`} className="edit-button">Edit Job</Link>
+                <Link to="/" className="back-button">Back to Job List</Link>
+            </div>
         </div>
     );
 };

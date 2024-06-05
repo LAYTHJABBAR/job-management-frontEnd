@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createJob, getJobById, updateJob } from '../services/api';
 import './JobForm.css';
 
@@ -62,6 +62,7 @@ const JobForm: React.FC = () => {
                 </div>
                 <button type="submit">{id ? 'Update Job' : 'Add Job'}</button>
             </form>
+            <Link to="/" className="back-button">Back to Job List</Link>
         </div>
     );
 };
